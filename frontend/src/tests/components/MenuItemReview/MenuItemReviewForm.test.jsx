@@ -114,21 +114,33 @@ describe("MenuItemReviewForm tests", () => {
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/Stars must be between 1 and 5/)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Stars must be between 1 and 5/),
+      ).toBeInTheDocument();
     });
 
-    fireEvent.change(document.getElementById("itemId"), { target: { value: 1 } });
-    fireEvent.change(document.getElementById("reviewerEmail"), { target: { value: "test@gmail.com" } });
-    fireEvent.change(screen.getByTestId(`${testId}-stars`), { target: { value: 0 } });
-    fireEvent.change(document.getElementById("dateReviewed"), { target: { value: "2022-01-01T00:00" } });
-    fireEvent.change(document.getElementById("comments"), { target: { value: "great" } });
+    fireEvent.change(document.getElementById("itemId"), {
+      target: { value: 1 },
+    });
+    fireEvent.change(document.getElementById("reviewerEmail"), {
+      target: { value: "test@gmail.com" },
+    });
+    fireEvent.change(screen.getByTestId(`${testId}-stars`), {
+      target: { value: 0 },
+    });
+    fireEvent.change(document.getElementById("dateReviewed"), {
+      target: { value: "2022-01-01T00:00" },
+    });
+    fireEvent.change(document.getElementById("comments"), {
+      target: { value: "great" },
+    });
 
     fireEvent.click(await screen.findByText(/Create/));
 
     await waitFor(() => {
-        expect(screen.getByText(/Stars must be between 1 and 5/)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Stars must be between 1 and 5/),
+      ).toBeInTheDocument();
     });
-
-
   });
 });
