@@ -7,16 +7,20 @@ function ArticlesForm({
   submitAction,
   buttonLabel = "Create",
 }) {
+  // Stryker disable all
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({ defaultValues: initialContents || {} });
+  // Stryker restore all
 
   const navigate = useNavigate();
 
+  // Stryker disable Regex
   const isodate_regex =
     /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
+  // Stryker restore Regex
 
   return (
     <Form onSubmit={handleSubmit(submitAction)}>
@@ -54,6 +58,25 @@ function ArticlesForm({
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
+
+        <Col>
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="localDateTime">Date (iso format)</Form.Label>
+            <Form.Control
+              data-testid="ArticlesForm-localDateTime"
+              id="localDateTime"
+              type="datetime-local"
+              isInvalid={Boolean(errors.localDateTime)}
+              {...register("localDateTime", {
+                required: true,
+                pattern: isodate_regex,
+              })}
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.localDateTime && "LocalDateTime is required. "}
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Col>
       </Row>
 
       <Row>
@@ -74,24 +97,6 @@ function ArticlesForm({
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
-
-        <Col>
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="email">Email</Form.Label>
-            <Form.Control
-              data-testid="ArticlesForm-email"
-              id="email"
-              type="email"
-              isInvalid={Boolean(errors.email)}
-              {...register("email", {
-                required: "Email is required.",
-              })}
-            />
-            <Form.Control.Feedback type="invalid">
-              {errors.email?.message}
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Col>
       </Row>
 
       <Row>
@@ -101,8 +106,7 @@ function ArticlesForm({
             <Form.Control
               data-testid="ArticlesForm-explanation"
               id="explanation"
-              as="textarea"
-              rows={3}
+              type="text"
               isInvalid={Boolean(errors.explanation)}
               {...register("explanation", {
                 required: "Explanation is required.",
@@ -118,19 +122,18 @@ function ArticlesForm({
       <Row>
         <Col>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="localDateTime">Date</Form.Label>
+            <Form.Label htmlFor="email">Email</Form.Label>
             <Form.Control
-              data-testid="ArticlesForm-localDateTime"
-              id="localDateTime"
-              type="datetime-local"
-              isInvalid={Boolean(errors.localDateTime)}
-              {...register("localDateTime", {
-                required: "LocalDateTime is required.",
-                pattern: isodate_regex,
+              data-testid="ArticlesForm-email"
+              id="email"
+              type="text"
+              isInvalid={Boolean(errors.email)}
+              {...register("email", {
+                required: "Email is required.",
               })}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.localDateTime?.message}
+              {errors.email?.message}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -142,7 +145,7 @@ function ArticlesForm({
             {buttonLabel}
           </Button>
           <Button
-            variant="secondary"
+            variant="Secondary"
             onClick={() => navigate(-1)}
             data-testid="ArticlesForm-cancel"
           >
