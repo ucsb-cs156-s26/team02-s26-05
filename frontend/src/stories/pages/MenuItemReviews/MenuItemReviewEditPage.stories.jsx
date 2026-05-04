@@ -31,12 +31,19 @@ Default.parameters = {
         status: 200,
       });
     }),
+
     http.put("/api/menuitemreview", () => {
-      return HttpResponse.json({}, { status: 200 });
-    }),
-    http.put("/api/menuitemreview", (req) => {
-      window.alert("PUT: " + req.url + " and body: " + req.body);
-      return HttpResponse.json({}, { status: 200 });
+      return HttpResponse.json(
+        {
+          id: 17,
+          itemId: 3,
+          reviewerEmail: "email1@gmail.com",
+          stars: 5,
+          dateReviewed: "2022-02-02T12:00:00",
+          comments: "yummy",
+        },
+        { status: 200 },
+      );
     }),
   ],
 };

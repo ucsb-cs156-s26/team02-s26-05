@@ -68,12 +68,14 @@ describe("MenuItemReviewEditPage tests", () => {
         </QueryClientProvider>,
       );
       await screen.findByText("Edit MenuItemReview");
-      expect(screen.queryByTestId("MenuItemReview-itemId")).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId("MenuItemReview-itemId"),
+      ).not.toBeInTheDocument();
       restoreConsole();
     });
   });
 
-   describe("tests where backend is working normally", () => {
+  describe("tests where backend is working normally", () => {
     beforeEach(() => {
       axiosMock = new AxiosMockAdapter(axios);
       axiosMock.reset();
@@ -84,14 +86,16 @@ describe("MenuItemReviewEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/menuitemreview", { params: { id: 17 } }).reply(200, {
-        id: 17,
-        itemId: 1,
-        reviewerEmail: "email@gmail.com",
-        stars: 4,
-        dateReviewed: "2022-01-02T12:00:00",
-        comments: "yum",
-      });
+      axiosMock
+        .onGet("/api/menuitemreview", { params: { id: 17 } })
+        .reply(200, {
+          id: 17,
+          itemId: 1,
+          reviewerEmail: "email@gmail.com",
+          stars: 4,
+          dateReviewed: "2022-01-02T12:00:00",
+          comments: "yum",
+        });
       axiosMock.onPut("/api/menuitemreview").reply(200, {
         id: 17,
         itemId: 3,
@@ -109,7 +113,7 @@ describe("MenuItemReviewEditPage tests", () => {
       axiosMock.resetHistory();
     });
 
-   const queryClient = new QueryClient();
+    const queryClient = new QueryClient();
 
     test("Is populated with the data provided, and changes when data is changed", async () => {
       render(
@@ -162,13 +166,13 @@ describe("MenuItemReviewEditPage tests", () => {
       fireEvent.change(reviewerEmailField, {
         target: { value: "email1@gmail.com" },
       });
-     fireEvent.change(starsField, {
+      fireEvent.change(starsField, {
         target: { value: "5", valueAsNumber: 5 },
       });
       fireEvent.change(dateReviewedField, {
-      target: { value: "2022-02-02T12:00:00" },
+        target: { value: "2022-02-02T12:00:00" },
       });
-     fireEvent.change(commentsField, {
+      fireEvent.change(commentsField, {
         target: { value: "yummy" },
       });
       fireEvent.click(submitButton);
