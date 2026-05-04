@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s26/team02-s26-05
 owner: ucsb-cs156-s26
 repo_name: team02-s26-05
-pull_requests: [{"author":{"id":"U_kgDOBZt3Dw","is_bot":false,"login":"ibrahimgok01","name":"Ibrahim Gok"},"headRefName":"ig-table-articles","number":73,"title":"IG - Create Articles Table","url":"https://github.com/ucsb-cs156-s26/team02-s26-05/pull/73"}]
+pull_requests: [{"author":{"id":"U_kgDOCVHjzg","is_bot":false,"login":"elissaalawi","name":"Elissa Alawi"},"headRefName":"ea-MenuItemReview-index","number":74,"title":"ea - add MenuItemReview Index page with stories and tests","url":"https://github.com/ucsb-cs156-s26/team02-s26-05/pull/74"},{"author":{"id":"U_kgDOBZt3Dw","is_bot":false,"login":"ibrahimgok01","name":"Ibrahim Gok"},"headRefName":"ig-table-articles","number":73,"title":"IG - Create Articles Table","url":"https://github.com/ucsb-cs156-s26/team02-s26-05/pull/73"}]
