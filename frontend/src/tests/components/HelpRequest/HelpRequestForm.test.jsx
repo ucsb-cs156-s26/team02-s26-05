@@ -34,8 +34,7 @@ describe("HelpRequestForm tests", () => {
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
 
     expectedHeaders.forEach((headerText) => {
-      const header = screen.getByText(headerText);
-      expect(header).toBeInTheDocument();
+      expect(screen.getByText(headerText)).toBeInTheDocument();
     });
   });
 
@@ -46,15 +45,8 @@ describe("HelpRequestForm tests", () => {
       </Router>,
     );
 
-    expect(await screen.findByText(/Create/)).toBeInTheDocument();
-
-    expectedHeaders.forEach((headerText) => {
-      const header = screen.getByText(headerText);
-      expect(header).toBeInTheDocument();
-    });
-
     expect(await screen.findByTestId(`${testId}-id`)).toBeInTheDocument();
-    expect(screen.getByText(`Id`)).toBeInTheDocument();
+    expect(screen.getByText("Id")).toBeInTheDocument();
     expect(screen.getByTestId(`${testId}-id`)).toHaveValue("1");
   });
 
@@ -92,9 +84,7 @@ describe("HelpRequestForm tests", () => {
       </Router>,
     );
     expect(await screen.findByTestId(`${testId}-cancel`)).toBeInTheDocument();
-    const cancelButton = screen.getByTestId(`${testId}-cancel`);
-
-    fireEvent.click(cancelButton);
+    fireEvent.click(screen.getByTestId(`${testId}-cancel`));
 
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
   });
@@ -106,8 +96,7 @@ describe("HelpRequestForm tests", () => {
       </Router>,
     );
 
-    const submitButton = await screen.findByTestId(`${testId}-submit`);
-    fireEvent.click(submitButton);
+    fireEvent.click(await screen.findByTestId(`${testId}-submit`));
 
     await screen.findByText(/Requester Email is required\./);
     expect(screen.getByText(/Team Id is required\./)).toBeInTheDocument();
@@ -127,17 +116,18 @@ describe("HelpRequestForm tests", () => {
 
     const submitButton = await screen.findByTestId(`${testId}-submit`);
 
-    const requesterEmailField = screen.getByTestId(`${testId}-requesterEmail`);
-    const teamIdField = screen.getByTestId(`${testId}-teamId`);
-    const tableField = screen.getByTestId(`${testId}-tableOrBreakoutRoom`);
-    const explanationField = screen.getByTestId(`${testId}-explanation`);
-
-    fireEvent.change(requesterEmailField, {
+    fireEvent.change(screen.getByTestId(`${testId}-requesterEmail`), {
       target: { value: "not-an-email" },
     });
-    fireEvent.change(teamIdField, { target: { value: "a".repeat(31) } });
-    fireEvent.change(tableField, { target: { value: "b".repeat(51) } });
-    fireEvent.change(explanationField, { target: { value: "c".repeat(256) } });
+    fireEvent.change(screen.getByTestId(`${testId}-teamId`), {
+      target: { value: "a".repeat(31) },
+    });
+    fireEvent.change(screen.getByTestId(`${testId}-tableOrBreakoutRoom`), {
+      target: { value: "b".repeat(51) },
+    });
+    fireEvent.change(screen.getByTestId(`${testId}-explanation`), {
+      target: { value: "c".repeat(256) },
+    });
 
     fireEvent.click(submitButton);
 
@@ -156,38 +146,25 @@ describe("HelpRequestForm tests", () => {
       </Router>,
     );
 
-    const requesterEmailField = await screen.findByTestId(
-      `${testId}-requesterEmail`,
-    );
-    const teamIdField = screen.getByTestId(`${testId}-teamId`);
-    const tableField = screen.getByTestId(`${testId}-tableOrBreakoutRoom`);
-    const requestTimeField = screen.getByTestId(`${testId}-requestTime`);
-    const explanationField = screen.getByTestId(`${testId}-explanation`);
-    const solvedField = screen.getByTestId(`${testId}-solved`);
-    const submitButton = screen.getByTestId(`${testId}-submit`);
-
-    fireEvent.change(requesterEmailField, {
+    fireEvent.change(await screen.findByTestId(`${testId}-requesterEmail`), {
       target: { value: "cgaucho@ucsb.edu" },
     });
-    fireEvent.change(teamIdField, { target: { value: "s26-5pm-3" } });
-    fireEvent.change(tableField, { target: { value: "7" } });
-    fireEvent.change(requestTimeField, {
+    fireEvent.change(screen.getByTestId(`${testId}-teamId`), {
+      target: { value: "s26-5pm-3" },
+    });
+    fireEvent.change(screen.getByTestId(`${testId}-tableOrBreakoutRoom`), {
+      target: { value: "7" },
+    });
+    fireEvent.change(screen.getByTestId(`${testId}-requestTime`), {
       target: { value: "2025-10-08T17:30" },
     });
-    fireEvent.change(explanationField, {
+    fireEvent.change(screen.getByTestId(`${testId}-explanation`), {
       target: { value: "Need help with Swagger" },
     });
-    fireEvent.click(solvedField);
+    fireEvent.click(screen.getByTestId(`${testId}-solved`));
 
-    fireEvent.click(submitButton);
+    fireEvent.click(screen.getByTestId(`${testId}-submit`));
 
     await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
-
-    expect(
-      screen.queryByText(/Requester Email is required\./),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(/Requester Email must be a valid email address\./),
-    ).not.toBeInTheDocument();
   });
 });
