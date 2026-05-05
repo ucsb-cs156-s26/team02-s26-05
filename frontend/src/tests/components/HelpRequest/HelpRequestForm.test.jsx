@@ -42,9 +42,7 @@ describe("HelpRequestForm tests", () => {
   test("renders correctly when passing in initialContents", async () => {
     render(
       <Router>
-        <HelpRequestForm
-          initialContents={helpRequestFixtures.oneHelpRequest}
-        />
+        <HelpRequestForm initialContents={helpRequestFixtures.oneHelpRequest} />
       </Router>,
     );
 
@@ -71,9 +69,7 @@ describe("HelpRequestForm tests", () => {
         />
       </Router>,
     );
-    const requestTimeField = await screen.findByTestId(
-      `${testId}-requestTime`,
-    );
+    const requestTimeField = await screen.findByTestId(`${testId}-requestTime`);
     expect(requestTimeField.value.startsWith("2025-10-08T17:30")).toBe(true);
     expect(requestTimeField.value.endsWith("Z")).toBe(false);
   });
@@ -84,9 +80,7 @@ describe("HelpRequestForm tests", () => {
         <HelpRequestForm initialContents={{ id: 7 }} />
       </Router>,
     );
-    const requestTimeField = await screen.findByTestId(
-      `${testId}-requestTime`,
-    );
+    const requestTimeField = await screen.findByTestId(`${testId}-requestTime`);
     expect(requestTimeField).toHaveValue("");
     expect(screen.getByTestId(`${testId}-id`)).toHaveValue("7");
   });
@@ -133,23 +127,21 @@ describe("HelpRequestForm tests", () => {
 
     const submitButton = await screen.findByTestId(`${testId}-submit`);
 
-    const requesterEmailField = screen.getByTestId(
-      `${testId}-requesterEmail`,
-    );
+    const requesterEmailField = screen.getByTestId(`${testId}-requesterEmail`);
     const teamIdField = screen.getByTestId(`${testId}-teamId`);
     const tableField = screen.getByTestId(`${testId}-tableOrBreakoutRoom`);
     const explanationField = screen.getByTestId(`${testId}-explanation`);
 
-    fireEvent.change(requesterEmailField, { target: { value: "not-an-email" } });
+    fireEvent.change(requesterEmailField, {
+      target: { value: "not-an-email" },
+    });
     fireEvent.change(teamIdField, { target: { value: "a".repeat(31) } });
     fireEvent.change(tableField, { target: { value: "b".repeat(51) } });
     fireEvent.change(explanationField, { target: { value: "c".repeat(256) } });
 
     fireEvent.click(submitButton);
 
-    await screen.findByText(
-      /Requester Email must be a valid email address\./,
-    );
+    await screen.findByText(/Requester Email must be a valid email address\./);
     expect(screen.getByText(/Max length 30 characters/)).toBeInTheDocument();
     expect(screen.getByText(/Max length 50 characters/)).toBeInTheDocument();
     expect(screen.getByText(/Max length 255 characters/)).toBeInTheDocument();
