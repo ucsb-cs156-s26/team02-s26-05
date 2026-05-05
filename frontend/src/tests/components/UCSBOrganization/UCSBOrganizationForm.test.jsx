@@ -41,6 +41,14 @@ describe("UCSBOrganizationForm tests", () => {
       const header = screen.getByText(headerText);
       expect(header).toBeInTheDocument();
     });
+
+    expect(screen.getByTestId(`${testId}-orgCode`)).toBeInTheDocument();
+    expect(
+      screen.getByTestId(`${testId}-orgTranslationShort`),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-orgTranslation`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-inactive`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-submit`)).toBeInTheDocument();
   });
 
   test("renders correctly when passing in initialContents", async () => {
@@ -60,6 +68,13 @@ describe("UCSBOrganizationForm tests", () => {
       const header = screen.getByText(headerText);
       expect(header).toBeInTheDocument();
     });
+
+    expect(screen.getByTestId(`${testId}-orgCode`)).toBeDisabled();
+    expect(
+      screen.getByTestId(`${testId}-orgTranslationShort`),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-orgTranslation`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-inactive`)).toBeInTheDocument();
   });
 
   test("that navigate(-1) is called when Cancel is clicked", async () => {
@@ -88,7 +103,7 @@ describe("UCSBOrganizationForm tests", () => {
     );
 
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
-    const submitButton = screen.getByText(/Create/);
+    const submitButton = screen.getByTestId(`${testId}-submit`);
     fireEvent.click(submitButton);
 
     await screen.findByText(/Org Code is required/);
