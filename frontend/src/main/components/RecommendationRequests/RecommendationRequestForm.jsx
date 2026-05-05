@@ -54,25 +54,26 @@ function RecommendationRequestForm({
           {errors.requesterEmail?.message}
         </Form.Control.Feedback>
       </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="professorEmail">Professor Email</Form.Label>
-            <Form.Control
-              data-testid={testIdPrefix + "-professorEmail"}
-              id="professorEmail"
-              type="text"
-              isInvalid={Boolean(errors.professorEmail)}
-              {...register("professorEmail", {
-                required: "Requester Email is required.",
-                maxLength: {
-                value: 255,
-                message: "Max length 30 characters",                  },
-                })}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.professorEmail?.message}
-              </Form.Control.Feedback>
-            </Form.Group>
-        <Form.Group className="mb-3">
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="professorEmail">Professor Email</Form.Label>
+        <Form.Control
+          data-testid={testIdPrefix + "-professorEmail"}
+          id="professorEmail"
+          type="text"
+          isInvalid={Boolean(errors.professorEmail)}
+          {...register("professorEmail", {
+            required: "Requester Email is required.",
+            maxLength: {
+              value: 255,
+              message: "Max length 30 characters",
+            },
+          })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.professorEmail?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group className="mb-3">
         <Form.Label htmlFor="explanation">Explanation</Form.Label>
         <Form.Control
           data-testid={testIdPrefix + "-explanation"}
@@ -87,7 +88,6 @@ function RecommendationRequestForm({
           {errors.explanation?.message}
         </Form.Control.Feedback>
       </Form.Group>
-
 
       <Button type="submit" data-testid={testIdPrefix + "-submit"}>
         {buttonLabel}
