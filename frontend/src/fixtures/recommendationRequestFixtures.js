@@ -1,5 +1,5 @@
 const recommendationRequestFixtures = {
-  oneRecomendationRequest: {
+  oneRecommendationRequest: {
     id: 1,
     requesterEmail: "soome@ucsb.edu",
     professorEmail: "katie@ucsb.edu",
@@ -8,7 +8,7 @@ const recommendationRequestFixtures = {
     dateNeeded: "2022-03-02T12:00:00",
     done: false,
   },
-  threeRecomendationRequests: [
+  threeRecommendationRequests: [
     {
       id: 1,
       requesterEmail: "soome@ucsb.edu",
