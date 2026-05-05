@@ -15,7 +15,7 @@ function HelpRequestForm({
           ? initialContents.requestTime.replace("Z", "")
           : "",
       }
-    : {};
+    : { solved: false };
 
   const {
     register,
