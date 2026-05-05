@@ -18,7 +18,12 @@ vi.mock("react-router", async () => {
 describe("UCSBOrganizationForm tests", () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ["Org Code", "Short Translation", "Translation", "Inactive"];
+  const expectedHeaders = [
+    "Org Code",
+    "Short Translation",
+    "Translation",
+    "Inactive",
+  ];
   const testId = "UCSBOrganizationForm";
 
   test("renders correctly with no initialContents", async () => {
@@ -42,7 +47,9 @@ describe("UCSBOrganizationForm tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <UCSBOrganizationForm initialContents={ucsbOrganizationFixtures.oneOrganization[0]} />
+          <UCSBOrganizationForm
+            initialContents={ucsbOrganizationFixtures.oneOrganization[0]}
+          />
         </Router>
       </QueryClientProvider>,
     );
@@ -85,7 +92,9 @@ describe("UCSBOrganizationForm tests", () => {
     fireEvent.click(submitButton);
 
     await screen.findByText(/Org Code is required/);
-    expect(screen.getByText("Short Translation is required.")).toBeInTheDocument();
+    expect(
+      screen.getByText("Short Translation is required."),
+    ).toBeInTheDocument();
     expect(screen.getByText("Translation is required.")).toBeInTheDocument();
   });
 });
