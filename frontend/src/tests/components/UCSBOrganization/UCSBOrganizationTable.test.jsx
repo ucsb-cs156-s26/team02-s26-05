@@ -7,6 +7,9 @@ import { currentUserFixtures } from "fixtures/currentUserFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
+import { toast } from "react-toastify";
+import { onDeleteSuccess } from "main/utils/ucsbOrganizationUtils";
+
 const mockedNavigate = vi.fn();
 vi.mock("react-router", async () => {
   const originalModule = await vi.importActual("react-router");
@@ -14,6 +17,17 @@ vi.mock("react-router", async () => {
     ...originalModule,
     useNavigate: () => mockedNavigate,
   };
+});
+
+vi.mock("react-toastify", () => ({
+  toast: vi.fn(),
+}));
+
+describe("onDeleteSuccess tests", () => {
+  test("calls toast with message", () => {
+    onDeleteSuccess("UCSBOrganization deleted");
+    expect(toast).toHaveBeenCalledWith("UCSBOrganization deleted");
+  });
 });
 
 describe("UCSBOrganizationTable tests", () => {
@@ -185,5 +199,6 @@ describe("UCSBOrganizationTable tests", () => {
 
     await waitFor(() => expect(axiosMock.history.delete.length).toBe(1));
     expect(axiosMock.history.delete[0].params).toEqual({ orgCode: "SKY" });
+    expect(axiosMock.history.delete[0].url).toBe("/api/ucsborganization");
   });
 });
