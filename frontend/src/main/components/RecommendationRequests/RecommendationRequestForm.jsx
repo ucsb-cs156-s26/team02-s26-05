@@ -131,17 +131,13 @@ function RecommendationRequestForm({
           type="checkbox"
           label="done"
           id="done"
-          {...register("done", {
-          })}
+          {...register("done", {})}
         />
 
-        <Form.Control.Feedback type="invalid">
-        </Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
       </Form.Group>
 
-      <Button type="submit">
-        {buttonLabel}
-      </Button>
+      <Button type="submit">{buttonLabel}</Button>
       <Button
         variant="Secondary"
         onClick={() => navigate(-1)}
