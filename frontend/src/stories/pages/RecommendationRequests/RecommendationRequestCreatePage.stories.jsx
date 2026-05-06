@@ -6,7 +6,7 @@ import { http, HttpResponse } from "msw";
 import RecommendationRequestsCreatePage from "main/pages/RecommendationRequests/RecommendationRequestsCreatePage";
 
 export default {
-  title: "pages/RecommendationRequests/RecommendationRequestsCreatePage",
+  title: "pages/RecommendationRequest/RecommendationRequestCreatePage",
   component: RecommendationRequestsCreatePage,
 };
 

@@ -82,6 +82,7 @@ function RecommendationRequestForm({
         <Form.Label htmlFor="explanation">Explanation</Form.Label>
         <Form.Control
           id="explanation"
+          data-testid={testIdPrefix + "-explanation"}
           type="text"
           isInvalid={Boolean(errors.explanation)}
           {...register("explanation", {
@@ -97,6 +98,7 @@ function RecommendationRequestForm({
         <Form.Label htmlFor="dateRequested">Date Requested (in UTC)</Form.Label>
         <Form.Control
           id="dateRequested"
+          data-testid="RecommendationRequestForm-dateRequested"
           type="datetime-local"
           isInvalid={Boolean(errors.dateRequested)}
           {...register("dateRequested", {
@@ -113,6 +115,7 @@ function RecommendationRequestForm({
         <Form.Label htmlFor="dateNeeded">Date Needed (in UTC)</Form.Label>
         <Form.Control
           id="dateNeeded"
+          data-testid="RecommendationRequestForm-dateNeeded"
           type="datetime-local"
           isInvalid={Boolean(errors.dateNeeded)}
           {...register("dateNeeded", {
@@ -128,6 +131,7 @@ function RecommendationRequestForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="done">Done</Form.Label>
         <Form.Check
+          data-testid="RecommendationRequestForm-done"
           type="checkbox"
           label="done"
           id="done"
@@ -137,7 +141,9 @@ function RecommendationRequestForm({
         <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
       </Form.Group>
 
-      <Button type="submit">{buttonLabel}</Button>
+      <Button type="submit" data-testid={testIdPrefix + "-submit"}>
+        {buttonLabel}
+      </Button>
       <Button
         variant="Secondary"
         onClick={() => navigate(-1)}
