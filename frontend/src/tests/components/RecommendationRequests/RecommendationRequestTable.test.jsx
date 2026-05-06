@@ -252,4 +252,5 @@ describe("RecommendationRequestTable tests", () => {
     await waitFor(() => expect(axiosMock.history.delete.length).toBe(1));
     expect(axiosMock.history.delete[0].params).toEqual({ id: 1 });
   });
+  
 });
