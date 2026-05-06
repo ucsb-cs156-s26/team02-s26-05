@@ -18,6 +18,10 @@ import MenuItemReviewIndexPage from "main/pages/MenuItemReviews/MenuItemReviewIn
 import MenuItemReviewCreatePage from "main/pages/MenuItemReviews/MenuItemReviewCreatePage";
 import MenuItemReviewEditPage from "main/pages/MenuItemReviews/MenuItemReviewEditPage";
 
+import RecommendationRequestsIndexPage from "main/pages/RecommendationRequests/RecommendationRequestsIndexPage";
+import RecommendationRequestsCreatePage from "main/pages/RecommendationRequests/RecommendationRequestsCreatePage";
+import RecommendationRequestsEditPage from "main/pages/RecommendationRequests/RecommendationRequestsEditPage";
+
 import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
 import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
@@ -33,6 +37,7 @@ import { hasRole, useCurrentUser } from "main/utils/useCurrentUser";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "react-toastify/dist/ReactToastify.css";
+import RecommendationRequestIndexPage from "main/pages/RecommendationRequests/RecommendationRequestsIndexPage";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -121,6 +126,25 @@ function App() {
             exact
             path="/articles/create"
             element={<ArticlesCreatePage />}
+          />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_USER") && (
+        <>
+          <Route exact path="/recommendationRequest" element={<RecommendationRequestsIndexPage />} />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
+          <Route
+            exact
+            path="/recommendationRequest/edit/:id"
+            element={<RecommendationRequestsEditPage />}
+          />
+          <Route
+            exact
+            path="/recommendationRequest/create"
+            element={<RecommendationRequestsCreatePage />}
           />
         </>
       )}
