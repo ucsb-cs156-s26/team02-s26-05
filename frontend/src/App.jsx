@@ -37,7 +37,6 @@ import { hasRole, useCurrentUser } from "main/utils/useCurrentUser";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "react-toastify/dist/ReactToastify.css";
-import RecommendationRequestIndexPage from "main/pages/RecommendationRequests/RecommendationRequestsIndexPage";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -131,7 +130,11 @@ function App() {
       )}
       {hasRole(currentUser, "ROLE_USER") && (
         <>
-          <Route exact path="/recommendationRequest" element={<RecommendationRequestsIndexPage />} />
+          <Route
+            exact
+            path="/recommendationRequest"
+            element={<RecommendationRequestsIndexPage />}
+          />
         </>
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
