@@ -82,12 +82,11 @@ describe("RecommendationRequestIndexPage tests", () => {
       </QueryClientProvider>,
     );
 
-  await waitFor(() => {
-    expect(
-      screen.queryByText(/Create Recommendation Request/),
-    ).not.toBeInTheDocument();
-  });
-  
+    await waitFor(() => {
+      expect(
+        screen.queryByText(/Create Recommendation Request/),
+      ).not.toBeInTheDocument();
+    });
   });
 
   test("renders three recommendationRequest correctly for regular user", async () => {
