@@ -219,24 +219,7 @@
 <a name='L154'></a><a href='#L154'>154</a>
 <a name='L155'></a><a href='#L155'>155</a>
 <a name='L156'></a><a href='#L156'>156</a>
-<a name='L157'></a><a href='#L157'>157</a>
-<a name='L158'></a><a href='#L158'>158</a>
-<a name='L159'></a><a href='#L159'>159</a>
-<a name='L160'></a><a href='#L160'>160</a>
-<a name='L161'></a><a href='#L161'>161</a>
-<a name='L162'></a><a href='#L162'>162</a>
-<a name='L163'></a><a href='#L163'>163</a>
-<a name='L164'></a><a href='#L164'>164</a>
-<a name='L165'></a><a href='#L165'>165</a>
-<a name='L166'></a><a href='#L166'>166</a>
-<a name='L167'></a><a href='#L167'>167</a>
-<a name='L168'></a><a href='#L168'>168</a>
-<a name='L169'></a><a href='#L169'>169</a>
-<a name='L170'></a><a href='#L170'>170</a>
-<a name='L171'></a><a href='#L171'>171</a>
-<a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a>
-<a name='L174'></a><a href='#L174'>174</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L157'></a><a href='#L157'>157</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -250,36 +233,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -492,7 +458,6 @@ function RecommendationRequestForm({
       &lt;Form.Group className="mb-3"&gt;
         &lt;Form.Label htmlFor="explanation"&gt;Explanation&lt;/Form.Label&gt;
         &lt;Form.Control
-          data-testid={testIdPrefix + "-explanation"}
           id="explanation"
           type="text"
           isInvalid={Boolean(errors.explanation)}
@@ -508,7 +473,6 @@ function RecommendationRequestForm({
       &lt;Form.Group className="mb-3"&gt;
         &lt;Form.Label htmlFor="dateRequested"&gt;Date Requested (in UTC)&lt;/Form.Label&gt;
         &lt;Form.Control
-          data-testid={testIdPrefix + "-dateRequested"}
           id="dateRequested"
           type="datetime-local"
           isInvalid={Boolean(errors.dateRequested)}
@@ -525,7 +489,6 @@ function RecommendationRequestForm({
       &lt;Form.Group className="mb-3"&gt;
         &lt;Form.Label htmlFor="dateNeeded"&gt;Date Needed (in UTC)&lt;/Form.Label&gt;
         &lt;Form.Control
-          data-testid={testIdPrefix + "-dateNeeded"}
           id="dateNeeded"
           type="datetime-local"
           isInvalid={Boolean(errors.dateNeeded)}
@@ -542,32 +505,18 @@ function RecommendationRequestForm({
       &lt;Form.Group className="mb-3"&gt;
         &lt;Form.Label htmlFor="done"&gt;Done&lt;/Form.Label&gt;
         &lt;Form.Check
-          type="radio"
-          label="Yes"
-          value={true}
-          id="done-yes"
-          data-testid={testIdPrefix + "-done-yes"}
+          type="checkbox"
+          label="done"
+          id="done"
           {...register("done", {
-            required: "Done is required",
           })}
         /&gt;
 &nbsp;
-        &lt;Form.Check
-          type="radio"
-          label="No"
-          value={false}
-          id="done-no"
-          data-testid={testIdPrefix + "-done-no"}
-          {...register("done", {
-            required: "Done is required",
-          })}
-        /&gt;
         &lt;Form.Control.Feedback type="invalid"&gt;
-          {errors.done?.message}
         &lt;/Form.Control.Feedback&gt;
       &lt;/Form.Group&gt;
 &nbsp;
-      &lt;Button type="submit" data-testid={testIdPrefix + "-submit"}&gt;
+      &lt;Button type="submit"&gt;
         {buttonLabel}
       &lt;/Button&gt;
       &lt;Button
@@ -589,7 +538,7 @@ export default RecommendationRequestForm;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-05-05T23:18:01.705Z
+                at 2026-05-06T00:52:15.420Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
