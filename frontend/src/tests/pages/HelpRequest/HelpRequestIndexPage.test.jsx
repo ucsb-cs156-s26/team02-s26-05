@@ -7,6 +7,7 @@ import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { helpRequestFixtures } from "fixtures/helpRequestFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
+import mockConsole from "tests/testutils/mockConsole";
 
 const mockToast = vi.fn();
 vi.mock("react-toastify", async (importOriginal) => {
@@ -97,6 +98,31 @@ describe("HelpRequestIndexPage tests", () => {
     expect(
       screen.queryByTestId(`${testId}-cell-row-0-col-Delete-button`),
     ).not.toBeInTheDocument();
+  });
+
+  test("renders empty table when help requests backend unavailable, user only", async () => {
+    setupUserOnly();
+    axiosMock.onGet("/api/helprequests/all").timeout();
+    const restoreConsole = mockConsole();
+    const queryClient = new QueryClient();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <HelpRequestIndexPage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => {
+      expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1);
+    });
+
+    const errorMessage = console.error.mock.calls[0][0];
+    expect(errorMessage).toMatch(
+      "Error communicating with backend via GET on /api/helprequests/all",
+    );
+    restoreConsole();
   });
 
   test("delete button works for admin user", async () => {
