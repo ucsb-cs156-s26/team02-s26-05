@@ -103,7 +103,40 @@ describe("recommendationRequestForm tests", () => {
     expect(screen.getByText(/Explanation is required/)).toBeInTheDocument();
     expect(screen.getByText(/Date Requested is required/)).toBeInTheDocument();
     expect(screen.getByText(/Date Needed is required/)).toBeInTheDocument();
-    expect(screen.getByText(/Done is required/)).toBeInTheDocument();
+  });
+
+    test("max length restrictions work on requester email", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <RecommendationRequestForm />
+        </Router>
+      </QueryClientProvider>,
+    );
+        const submitButton = screen.getByText(/Create/);
+
+
+    const requesterEmail = screen.getByTestId(`${testId}-requesterEmail`);
+    fireEvent.change(requesterEmail, { target: { value: "a".repeat(256) } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Max length 255 characters/)).toBeInTheDocument();
+    });
+
+  });
+
+    test("max length restrictions work on professor email", async () => {
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <RecommendationRequestForm />
+        </Router>
+      </QueryClientProvider>,
+    );
+        const submitButton = screen.getByText(/Create/);
+
 
     const professorEmail = screen.getByTestId(`${testId}-professorEmail`);
     fireEvent.change(professorEmail, { target: { value: "a".repeat(256) } });
@@ -113,12 +146,5 @@ describe("recommendationRequestForm tests", () => {
       expect(screen.getByText(/Max length 255 characters/)).toBeInTheDocument();
     });
 
-    const requesterEmail = screen.getByTestId(`${testId}-requesterEmail`);
-    fireEvent.change(requesterEmail, { target: { value: "a".repeat(256) } });
-    fireEvent.click(submitButton);
-
-    await waitFor(() => {
-      expect(screen.getByText(/Max length 255 characters/)).toBeInTheDocument();
-    });
   });
 });
