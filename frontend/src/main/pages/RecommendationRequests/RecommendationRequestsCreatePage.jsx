@@ -11,7 +11,6 @@ export default function PlaceholderCreatePage() {
   );
 }
 
-
 // import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 // import RestaurantForm from "main/components/Restaurants/RestaurantForm";
 // import { Navigate } from "react-router";
