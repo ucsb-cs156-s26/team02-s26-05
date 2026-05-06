@@ -72,7 +72,9 @@ describe("ArticlesEditPage tests", () => {
       await screen.findByText(/Welcome/);
       await screen.findByText("Edit Article");
 
-      expect(screen.queryByTestId("ArticlesForm-title")).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId("ArticlesForm-title"),
+      ).not.toBeInTheDocument();
 
       restoreConsole();
     });
@@ -161,7 +163,9 @@ describe("ArticlesEditPage tests", () => {
       const urlField = screen.getByTestId("ArticlesForm-url");
       const explanationField = screen.getByTestId("ArticlesForm-explanation");
       const emailField = screen.getByTestId("ArticlesForm-email");
-      const localDateTimeField = screen.getByTestId("ArticlesForm-localDateTime");
+      const localDateTimeField = screen.getByTestId(
+        "ArticlesForm-localDateTime",
+      );
       const submitButton = screen.getByTestId("ArticlesForm-submit");
 
       expect(idField).toHaveValue("17");
@@ -191,7 +195,9 @@ describe("ArticlesEditPage tests", () => {
       const urlField = screen.getByTestId("ArticlesForm-url");
       const explanationField = screen.getByTestId("ArticlesForm-explanation");
       const emailField = screen.getByTestId("ArticlesForm-email");
-      const localDateTimeField = screen.getByTestId("ArticlesForm-localDateTime");
+      const localDateTimeField = screen.getByTestId(
+        "ArticlesForm-localDateTime",
+      );
       const submitButton = screen.getByTestId("ArticlesForm-submit");
 
       expect(idField).toHaveValue("17");
