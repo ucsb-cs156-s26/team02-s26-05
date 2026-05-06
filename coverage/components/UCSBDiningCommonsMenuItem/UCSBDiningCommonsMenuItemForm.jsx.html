@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/Restaurants/RestaurantForm.jsx</title>
+    <title>Code coverage report for components/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemForm.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Restaurants</a> RestaurantForm.jsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/UCSBDiningCommonsMenuItem</a> UCSBDiningCommonsMenuItemForm.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -151,7 +151,19 @@
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,14 +177,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -243,7 +267,7 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 &nbsp;
-function RestaurantForm({
+function UCSBDiningCommonsMenuItemForm({
   initialContents,
   submitAction,
   buttonLabel = "Create",
@@ -258,7 +282,7 @@ function RestaurantForm({
 &nbsp;
   const navigate = useNavigate();
 &nbsp;
-  const testIdPrefix = "RestaurantForm";
+  const testIdPrefix = "UCSBDiningCommonsMenuItemForm";
 &nbsp;
   return (
     &lt;Form onSubmit={handleSubmit(submitAction)}&gt;
@@ -277,6 +301,22 @@ function RestaurantForm({
       )}
 &nbsp;
       &lt;Form.Group className="mb-3"&gt;
+        &lt;Form.Label htmlFor="diningCommonsCode"&gt;Dining Commons Code&lt;/Form.Label&gt;
+        &lt;Form.Control
+          data-testid={testIdPrefix + "-diningCommonsCode"}
+          id="diningCommonsCode"
+          type="text"
+          isInvalid={Boolean(errors.diningCommonsCode)}
+          {...register("diningCommonsCode", {
+            required: "Dining Commons Code is required.",
+          })}
+        /&gt;
+        &lt;Form.Control.Feedback type="invalid"&gt;
+          {errors.diningCommonsCode?.message}
+        &lt;/Form.Control.Feedback&gt;
+      &lt;/Form.Group&gt;
+&nbsp;
+      &lt;Form.Group className="mb-3"&gt;
         &lt;Form.Label htmlFor="name"&gt;Name&lt;/Form.Label&gt;
         &lt;Form.Control
           data-testid={testIdPrefix + "-name"}
@@ -285,10 +325,6 @@ function RestaurantForm({
           isInvalid={Boolean(errors.name)}
           {...register("name", {
             required: "Name is required.",
-            maxLength: {
-              value: 30,
-              message: "Max length 30 characters",
-            },
           })}
         /&gt;
         &lt;Form.Control.Feedback type="invalid"&gt;
@@ -297,18 +333,18 @@ function RestaurantForm({
       &lt;/Form.Group&gt;
 &nbsp;
       &lt;Form.Group className="mb-3"&gt;
-        &lt;Form.Label htmlFor="description"&gt;Description&lt;/Form.Label&gt;
+        &lt;Form.Label htmlFor="station"&gt;Station&lt;/Form.Label&gt;
         &lt;Form.Control
-          data-testid={testIdPrefix + "-description"}
-          id="description"
+          data-testid={testIdPrefix + "-station"}
+          id="station"
           type="text"
-          isInvalid={Boolean(errors.description)}
-          {...register("description", {
-            required: "Description is required.",
+          isInvalid={Boolean(errors.station)}
+          {...register("station", {
+            required: "Station is required.",
           })}
         /&gt;
         &lt;Form.Control.Feedback type="invalid"&gt;
-          {errors.description?.message}
+          {errors.station?.message}
         &lt;/Form.Control.Feedback&gt;
       &lt;/Form.Group&gt;
 &nbsp;
@@ -326,7 +362,7 @@ function RestaurantForm({
   );
 }
 &nbsp;
-export default RestaurantForm;
+export default UCSBDiningCommonsMenuItemForm;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
