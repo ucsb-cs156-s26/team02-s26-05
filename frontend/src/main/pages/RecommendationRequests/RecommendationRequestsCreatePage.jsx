@@ -1,22 +1,26 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import RestaurantForm from "main/components/Restaurants/RestaurantForm";
+import RecommendationRequestForm from "main/components/RecommendationRequests/RecommendationRequestForm";
 import { Navigate } from "react-router";
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function RestaurantCreatePage({ storybook = false }) {
-  const objectToAxiosParams = (restaurant) => ({
-    url: "/api/restaurants/post",
+export default function RecommendationRequestCreatePage({ storybook = false }) {
+  const objectToAxiosParams = (recommendationRequest) => ({
+    url: "/api/recommendationRequest/post",
     method: "POST",
     params: {
-      name: restaurant.name,
-      description: restaurant.description,
+      requesterEmail: recommendationRequest.requesterEmail,
+      professorEmail: recommendationRequest.professorEmail,
+      explanation: recommendationRequest.explanation,
+      dateRequested: recommendationRequest.dateRequested,
+      dateNeeded: recommendationRequest.dateNeeded,
+      done: recommendationRequest.done,
     },
   });
 
-  const onSuccess = (restaurant) => {
+  const onSuccess = (recommendationRequest) => {
     toast(
-      `New restaurant Created - id: ${restaurant.id} name: ${restaurant.name}`,
+      `New recommendationRequest Created - id: ${recommendationRequest.id} requesterEmail: ${recommendationRequest.requesterEmail}`,
     );
   };
 
@@ -24,7 +28,7 @@ export default function RestaurantCreatePage({ storybook = false }) {
     objectToAxiosParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    ["/api/restaurants/all"], // mutation makes this key stale so that pages relying on it reload
+    ["/api/recommendationRequest/all"], // mutation makes this key stale so that pages relying on it reload
   );
 
   const { isSuccess } = mutation;
@@ -34,14 +38,14 @@ export default function RestaurantCreatePage({ storybook = false }) {
   };
 
   if (isSuccess && !storybook) {
-    return <Navigate to="/restaurants" />;
+    return <Navigate to="/recommendationRequest" />;
   }
 
   return (
     <BasicLayout>
       <div className="pt-2">
-        <h1>Create New Restaurant</h1>
-        <RestaurantForm submitAction={onSubmit} />
+        <h1>Create New Recommendation Request</h1>
+        <RecommendationRequestForm submitAction={onSubmit} />
       </div>
     </BasicLayout>
   );
