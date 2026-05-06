@@ -217,6 +217,30 @@ describe("AppNavbar tests", () => {
     expect(link.getAttribute("href")).toBe("/helprequest");
   });
 
+  test("renders the UCSBDiningCommonsMenuItem link correctly", async () => {
+    const currentUser = currentUserFixtures.userOnly;
+    const systemInfo = systemInfoFixtures.showingBoth;
+
+    const doLogin = vi.fn();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await screen.findByText("UCSBDiningCommonsMenuItem");
+    const link = screen.getByText("UCSBDiningCommonsMenuItem");
+    expect(link).toBeInTheDocument();
+    expect(link.getAttribute("href")).toBe("/diningcommonsmenuitem");
+  });
+
   test("Restaurant and UCSBDates links do NOT show when not logged in", async () => {
     const currentUser = null;
     const systemInfo = systemInfoFixtures.showingBoth;
