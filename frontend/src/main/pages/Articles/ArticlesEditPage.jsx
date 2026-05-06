@@ -12,17 +12,14 @@ export default function ArticlesEditPage({ storybook = false }) {
     data: article,
     _error,
     _status,
-  } = useBackend(
-    [`/api/articles?id=${id}`],
-    {
-      // Stryker disable next-line all : GET is the default method
-      method: "GET",
-      url: "/api/articles",
-      params: {
-        id,
-      },
+  } = useBackend([`/api/articles?id=${id}`], {
+    // Stryker disable next-line all : GET is the default method
+    method: "GET",
+    url: "/api/articles",
+    params: {
+      id,
     },
-  );
+  });
 
   const objectToAxiosPutParams = (article) => ({
     url: "/api/articles",
