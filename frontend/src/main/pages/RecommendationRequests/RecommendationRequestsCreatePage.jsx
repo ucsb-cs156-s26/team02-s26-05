@@ -40,7 +40,6 @@ export default function RecommendationRequestCreatePage({ storybook = false }) {
   if (isSuccess && !storybook) {
     return <Navigate to="/recommendationRequest" />;
   }
-
   return (
     <BasicLayout>
       <div className="pt-2">
