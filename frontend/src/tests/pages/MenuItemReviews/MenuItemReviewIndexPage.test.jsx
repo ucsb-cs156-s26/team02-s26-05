@@ -161,7 +161,7 @@ describe("MenuItemReviewIndexPage tests", () => {
       .onGet("/api/menuitemreview/all")
       .reply(200, menuItemReviewFixtures.threeReviews);
     axiosMock
-      .onDelete("/api/menuItemReviews")
+      .onDelete("/api/menuitemreview")
       .reply(200, "MenuItemReview with id 1 was deleted");
 
     render(
@@ -196,8 +196,8 @@ describe("MenuItemReviewIndexPage tests", () => {
     await waitFor(() => {
       expect(axiosMock.history.delete.length).toBe(1);
     });
-    expect(axiosMock.history.delete[0].url).toBe("/api/menuItemReviews");
-    expect(axiosMock.history.delete[0].url).toBe("/api/menuItemReviews");
+    expect(axiosMock.history.delete[0].url).toBe("/api/menuitemreview");
+    expect(axiosMock.history.delete[0].url).toBe("/api/menuitemreview");
     expect(axiosMock.history.delete[0].params).toEqual({ id: 1 });
   });
 });
