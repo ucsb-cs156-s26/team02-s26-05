@@ -1,11 +1,12 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import HelpRequestForm from "main/components/HelpRequest/HelpRequestForm";
-import { Navigate, useParams } from "react-router";
+import { Navigate, useNavigate, useParams } from "react-router";
 import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
 export default function HelpRequestEditPage({ storybook = false }) {
   let { id } = useParams();
+  const navigate = useNavigate();
 
   const {
     data: helpRequest,
@@ -42,6 +43,9 @@ export default function HelpRequestEditPage({ storybook = false }) {
 
   const onSuccess = (hr) => {
     toast(`Help Request Updated - id: ${hr.id} email: ${hr.requesterEmail}`);
+    if (!storybook) {
+      navigate("/helprequest", { replace: true });
+    }
   };
 
   const mutation = useBackendMutation(
