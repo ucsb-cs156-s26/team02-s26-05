@@ -23,10 +23,7 @@ vi.mock("react-router", async (importOriginal) => {
   const originalModule = await importOriginal();
   return {
     ...originalModule,
-    Navigate: vi.fn((x) => {
-      mockNavigate(x);
-      return null;
-    }),
+    useNavigate: () => mockNavigate,
   };
 });
 
@@ -119,10 +116,14 @@ describe("HelpRequestCreatePage tests", () => {
       ),
     ).toBe(true);
 
-    expect(mockToast).toHaveBeenCalledWith(
-      "New Help Request Created - id: 5 email: cgaucho@ucsb.edu",
+    await waitFor(() =>
+      expect(mockToast).toHaveBeenCalledWith(
+        "New Help Request Created - id: 5 email: cgaucho@ucsb.edu",
+      ),
     );
-    expect(mockNavigate).toHaveBeenCalledWith({ to: "/helprequest" });
+    expect(mockNavigate).toHaveBeenCalledWith("/helprequest", {
+      replace: true,
+    });
   });
 
   test("on submit with invalid data, does not POST", async () => {
@@ -149,6 +150,59 @@ describe("HelpRequestCreatePage tests", () => {
     });
 
     expect(axiosMock.history.post.length).toBe(0);
+    expect(mockNavigate).not.toHaveBeenCalled();
+  });
+
+  test("when storybook=true, success does not navigate", async () => {
+    const saved = {
+      id: 9,
+      requesterEmail: "cgaucho@ucsb.edu",
+      teamId: "s26-5pm-3",
+      tableOrBreakoutRoom: "7",
+      requestTime: "2025-10-08T17:30:00",
+      explanation: "Need help",
+      solved: false,
+    };
+
+    axiosMock.onPost("/api/helprequests/post").reply(202, saved);
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <HelpRequestCreatePage storybook={true} />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByLabelText("Requester Email")).toBeInTheDocument();
+    });
+
+    fireEvent.change(screen.getByLabelText("Requester Email"), {
+      target: { value: "cgaucho@ucsb.edu" },
+    });
+    fireEvent.change(screen.getByLabelText("Team Id"), {
+      target: { value: "s26-5pm-3" },
+    });
+    fireEvent.change(screen.getByLabelText("Table or Breakout Room"), {
+      target: { value: "7" },
+    });
+    fireEvent.change(screen.getByLabelText("Request Time (iso format)"), {
+      target: { value: "2025-10-08T17:30" },
+    });
+    fireEvent.change(screen.getByLabelText("Explanation"), {
+      target: { value: "Need help" },
+    });
+
+    fireEvent.click(screen.getByText("Create"));
+
+    await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
+    await waitFor(() =>
+      expect(mockToast).toHaveBeenCalledWith(
+        "New Help Request Created - id: 9 email: cgaucho@ucsb.edu",
+      ),
+    );
+
     expect(mockNavigate).not.toHaveBeenCalled();
   });
 });

@@ -18,8 +18,7 @@ vi.mock("react-toastify", async (importOriginal) => {
   };
 });
 
-const mockNavigateRedirect = vi.fn();
-const mockNavigateBack = vi.fn();
+const mockNavigate = vi.fn();
 vi.mock("react-router", async (importOriginal) => {
   const originalModule = await importOriginal();
   return {
@@ -27,11 +26,7 @@ vi.mock("react-router", async (importOriginal) => {
     useParams: vi.fn(() => ({
       id: "17",
     })),
-    Navigate: vi.fn((x) => {
-      mockNavigateRedirect(x);
-      return null;
-    }),
-    useNavigate: () => mockNavigateBack,
+    useNavigate: () => mockNavigate,
   };
 });
 
@@ -53,8 +48,7 @@ describe("HelpRequestEditPage tests", () => {
 
     afterEach(() => {
       mockToast.mockClear();
-      mockNavigateRedirect.mockClear();
-      mockNavigateBack.mockClear();
+      mockNavigate.mockClear();
       axiosMock.restore();
       axiosMock.resetHistory();
     });
@@ -108,8 +102,7 @@ describe("HelpRequestEditPage tests", () => {
 
     afterEach(() => {
       mockToast.mockClear();
-      mockNavigateRedirect.mockClear();
-      mockNavigateBack.mockClear();
+      mockNavigate.mockClear();
       axiosMock.restore();
       axiosMock.resetHistory();
     });
@@ -158,7 +151,9 @@ describe("HelpRequestEditPage tests", () => {
       expect(mockToast).toBeCalledWith(
         "Help Request Updated - id: 17 email: cgaucho@ucsb.edu",
       );
-      expect(mockNavigateRedirect).toBeCalledWith({ to: "/helprequest" });
+      expect(mockNavigate).toHaveBeenCalledWith("/helprequest", {
+        replace: true,
+      });
 
       expect(axiosMock.history.put.length).toBe(1);
       expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
@@ -208,8 +203,40 @@ describe("HelpRequestEditPage tests", () => {
 
       fireEvent.click(screen.getByTestId("HelpRequestForm-cancel"));
 
-      expect(mockNavigateBack).toHaveBeenCalledWith(-1);
+      expect(mockNavigate).toHaveBeenCalledWith(-1);
       expect(axiosMock.history.put.length).toBe(0);
+    });
+
+    test("when storybook=true, successful update does not navigate", async () => {
+      axiosMock.onPut("/api/helprequests").reply(200, {
+        ...existingHelpRequest,
+        explanation: "Storybook update",
+      });
+
+      render(
+        <QueryClientProvider client={queryClient}>
+          <MemoryRouter>
+            <HelpRequestEditPage storybook={true} />
+          </MemoryRouter>
+        </QueryClientProvider>,
+      );
+
+      await screen.findByTestId("HelpRequestForm-requesterEmail");
+
+      fireEvent.change(screen.getByTestId("HelpRequestForm-explanation"), {
+        target: { value: "Storybook update" },
+      });
+
+      fireEvent.click(screen.getByTestId("HelpRequestForm-submit"));
+
+      await waitFor(() => expect(axiosMock.history.put.length).toBe(1));
+      await waitFor(() =>
+        expect(mockToast).toHaveBeenCalledWith(
+          "Help Request Updated - id: 17 email: cgaucho@ucsb.edu",
+        ),
+      );
+
+      expect(mockNavigate).not.toHaveBeenCalled();
     });
   });
 });

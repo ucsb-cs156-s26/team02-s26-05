@@ -1,6 +1,6 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import HelpRequestForm from "main/components/HelpRequest/HelpRequestForm";
-import { Navigate, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
@@ -55,15 +55,9 @@ export default function HelpRequestEditPage({ storybook = false }) {
     [`/api/helprequests?id=${id}`],
   );
 
-  const { isSuccess } = mutation;
-
   const onSubmit = async (data) => {
     mutation.mutate(data);
   };
-
-  if (isSuccess && !storybook) {
-    return <Navigate to="/helprequest" />;
-  }
 
   return (
     <BasicLayout>
