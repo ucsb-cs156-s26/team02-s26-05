@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s26/team02-s26-05
 owner: ucsb-cs156-s26
 repo_name: team02-s26-05
-pull_requests: [{"author":{"id":"U_kgDOCVHjzg","is_bot":false,"login":"elissaalawi","name":"Elissa Alawi"},"headRefName":"ea-menuitemreview-e2e-tests","number":127,"title":"Add e2e tests for MenuItemReview Table","url":"https://github.com/ucsb-cs156-s26/team02-s26-05/pull/127"}]
+pull_requests: []
