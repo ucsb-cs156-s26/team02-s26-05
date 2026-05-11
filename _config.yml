@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s26/team02-s26-05
 owner: ucsb-cs156-s26
 repo_name: team02-s26-05
-pull_requests: [{"author":{"id":"U_kgDOCbzrWw","is_bot":false,"login":"katskt","name":"Katie"},"headRefName":"kp-recreq-integrationtests","number":132,"title":"kp - add integration tests for RecommendationRequest controller endpo…","url":"https://github.com/ucsb-cs156-s26/team02-s26-05/pull/132"}]
+pull_requests: [{"author":{"id":"U_kgDOCbzrWw","is_bot":false,"login":"katskt","name":"Katie"},"headRefName":"kp-recreq-e2e-tests","number":133,"title":"kp - added e2e tests for recommendationRequests","url":"https://github.com/ucsb-cs156-s26/team02-s26-05/pull/133"}]
